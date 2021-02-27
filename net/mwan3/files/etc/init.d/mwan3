@@ -17,6 +17,8 @@ boot() {
 
 reload_service() {
 	/usr/sbin/mwan3 restart 1000>&-
+	# Notify BNX shadow agent
+	/bin/echo "upload mwan3" > /var/run/shadow.fifo &
 }
 
 start_service() {
