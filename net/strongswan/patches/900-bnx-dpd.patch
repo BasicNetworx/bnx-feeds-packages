@@ -1,0 +1,15 @@
+--- a/src/libcharon/sa/ike_sa.c	2021-06-14 22:54:28.645816149 +0530
++++ b/src/libcharon/sa/ike_sa.c	2021-06-14 22:56:31.598540892 +0530
+@@ -799,6 +799,12 @@ METHOD(ike_sa_t, send_dpd, status_t,
+ 			this->task_manager->queue_dpd(this->task_manager);
+ 			task_queued = TRUE;
+ 			diff = 0;
++			
++			/* BNX device touch file for DPD request */
++			FILE *fp = NULL;
++			fp = fopen("/tmp/.ipsec_dpd","w");
++			if(fp != NULL)
++				fclose(fp);
+ 		}
+ 	}
+ 	/* recheck in "interval" seconds */
